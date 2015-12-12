@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>Proxy Test</title>
+</head>
+<body>
+	<input type="text" id="v1" value="0"><br>
+	<input type="text" id="v2" value="0"><br>
+	<input type="text" id="v3" value="0"><br><br>
+	<label for="v">input: </label><input type="text" name="v" id="v"><br><br>
+	
+	<script>
+		var t = {}
+		var h = {
+			set(target,name,value){
+				f(name,value) // 関数にプロパティ名と値を渡す
+				target[name] = value;
+			}
+		}
+		var p = new Proxy(t, h)
+		
+		// プロパティ名と同じ ID に値を入れる
+		var f = function(n, v){
+			document.getElementById(n).value = v
+		}
+		
+		var v =  document.getElementById("v")
+		v.addEventListener("change", function(){
+			p.v1 = this.value;
+			p.v2 = this.value;
+			p.v3 = this.value;
+			
+			console.log(t)
+		})
+	</script>
+</body>
+</html>
